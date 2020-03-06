@@ -1,7 +1,6 @@
 package com.example.demo.restTemplate;
 
 import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +25,7 @@ public class Services {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", authentication_type + key);
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.add("Accept", "application/json");
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		return restTemplate
