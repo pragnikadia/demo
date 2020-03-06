@@ -1,5 +1,4 @@
-	package com.example.demo.entity;
-
+package com.example.demo.entity;
 import javax.persistence.*;
 
 
@@ -15,24 +14,18 @@ public class user
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
-	
 	String name;
-	
-
 	String email;
-	
 	long contact_no;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="address_id", referencedColumnName="address_id")
-
 	private Address a;
 	
 	
-public Address getA() {
-		return a;
-	}
+	public Address getA() {
+			return a;
+		}
 	public void setA(Address a) {
 		this.a = a;
 	}

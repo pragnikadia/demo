@@ -21,70 +21,62 @@ import com.example.demo.entity.Answer;
 
 @RestController
 @RequestMapping("/answer")
-public class AnswerController 
-{
+public class AnswerController {
 	@Autowired
 	AnswerDao answerdao;
-	
-	//save
+
+	// save
 	@PostMapping()
-	public Answer createAnswer(@Valid @RequestBody Answer a)
-	{
+	public Answer createAnswer(@Valid @RequestBody Answer a) {
 		return answerdao.save(a);
-		
+
 	}
-	//get all answer
+
+	// get all answer
 	@GetMapping()
-	public List<Answer> getAllAnswer()
-	{
+	public List<Answer> getAllAnswer() {
 		return answerdao.findAll();
 	}
-	
-	//get by employee id
+
+	// get by employee id
 	@GetMapping("/{id}")
-	public ResponseEntity<Optional<Answer>> getUserById(@PathVariable(value="id") int id)
-	{
-		Optional<Answer> u= answerdao.findById(id);
-		
-		if(u==null)
-		{
+	public ResponseEntity<Optional<Answer>> getUserById(@PathVariable(value = "id") int id) {
+		Optional<Answer> u = answerdao.findById(id);
+
+		if (u == null) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(u);
-		
+
 	}
-	//update answer
+
+	// update answer
 	@PutMapping("/{id}")
-	public ResponseEntity<Answer> updateAnswer(@PathVariable(value="id") int id,@Valid @RequestBody Answer answerdetail )
-	{
-		Optional<Answer> u= answerdao.findById(id);
-		Answer u1=u.get();
-		if(u1==null)
-		{
+	public ResponseEntity<Answer> updateAnswer(@PathVariable(value = "id") int id,
+			@Valid @RequestBody Answer answerdetail) {
+		Optional<Answer> u = answerdao.findById(id);
+		Answer u1 = u.get();
+		if (u1 == null) {
 			return ResponseEntity.notFound().build();
 		}
-	
+
 		u1.setAnswer(answerdetail.getAnswer());
-		u1.setPostedby(answerdetail.getAnswer());
-		
+		u1.setPostedby(answerdetail.getPostedby());
+
 		Answer updateAnswer = answerdao.save(u1);
 		return ResponseEntity.ok().body(updateAnswer);
 	}
-	
-	//delete answer
+
+	// delete answer
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Optional<Answer>> deleteAnswerById(@PathVariable(value="id") int id)
-	{
-		Optional<Answer> u= answerdao.findById(id);
-		
-		if(u==null)
-		{
+	public ResponseEntity<Optional<Answer>> deleteAnswerById(@PathVariable(value = "id") int id) {
+		Optional<Answer> u = answerdao.findById(id);
+
+		if (u == null) {
 			return ResponseEntity.notFound().build();
 		}
 		answerdao.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
-		
-		
-	
+
 }
